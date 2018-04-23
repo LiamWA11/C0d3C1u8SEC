@@ -39,10 +39,15 @@ try:
 	    print("disconnect")
 	    mambo.disconnect()
 
-except():
+except KeyboardInterrupt:
+        print("Failsafe activated")
+        mambo.safe_land(5)
+        mambo.smart_sleep(5)
+        mambo.disconnect()
 
-	print("landing")
+except Exception as e:
+	print("Error")
 	mambo.safe_land(5)
 	mambo.smart_sleep(5)
-	print("disconnect")
 	mambo.disconnect()
+	print(str(e))
