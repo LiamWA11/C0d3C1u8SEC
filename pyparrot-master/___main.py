@@ -16,34 +16,34 @@ print("connected: %s" % success)
 try:
 
 	if (success):
-	    # get the state information
-	    print("sleeping")
-	    mambo.smart_sleep(2)
-	    mambo.ask_for_state_update()
-	    mambo.smart_sleep(2)
+		# get the state information
+		print("sleeping")
+		mambo.smart_sleep(2)
+		mambo.ask_for_state_update()
+		mambo.smart_sleep(2)
 
-	    print("taking off!")
-	    mambo.safe_takeoff(5)
+		print("taking off!")
+		mambo.safe_takeoff(5)
 
-	    print("Showing turning (in place) using turn_degrees")
-	    mambo.turn_degrees(90)
-	    mambo.smart_sleep(2)
-	    mambo.turn_degrees(-90)
-	    mambo.smart_sleep(2)
+		print("Showing turning (in place) using turn_degrees")
+		mambo.turn_degrees(90)
+		mambo.smart_sleep(2)
+		mambo.turn_degrees(-90)
+		mambo.smart_sleep(2)
 
 
-	    print("landing")
-	    mambo.safe_land(5)
-	    mambo.smart_sleep(5)
+		print("landing")
+		mambo.safe_land(5)
+		mambo.smart_sleep(5)
 
-	    print("disconnect")
-	    mambo.disconnect()
+		print("disconnect")
+		mambo.disconnect()
 
 except KeyboardInterrupt:
-        print("Failsafe activated")
-        mambo.safe_land(5)
-        mambo.smart_sleep(5)
-        mambo.disconnect()
+		print("Failsafe activated")
+		mambo.safe_land(5)
+		mambo.smart_sleep(5)
+		mambo.disconnect()
 
 except Exception as e:
 	print("Error")
