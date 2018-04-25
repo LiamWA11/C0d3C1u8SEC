@@ -44,13 +44,14 @@ try:
 		mambo.disconnect()
 
 except KeyboardInterrupt:
-		print("Failsafe activated")
+		print("\033[1;31m ### Failsafe Activated ### \033[0;0m")
 		mambo.safe_land(5)
 		mambo.smart_sleep(5)
 		mambo.disconnect()
 
 except Exception as e:
-	print("Error: " + str(e))
+	print("\033[1;31m ### Failsafe Activated ###")
+	print("Error: \033[0;0m" + str(e))
 	mambo.safe_land(5)
 	mambo.smart_sleep(5)
 	mambo.disconnect()
