@@ -25,12 +25,16 @@ try:
 		print("taking off!")
 		mambo.safe_takeoff(5)
 
+		#Tell the drone what to do here
 		print("Showing turning (in place) using turn_degrees")
 		mambo.turn_degrees(90)
 		mambo.smart_sleep(2)
 		mambo.turn_degrees(-90)
 		mambo.smart_sleep(2)
 
+		print("landing")
+		mambo.safe_land(5)
+		mambo.smart_sleep(5)
 
 		print("landing")
 		mambo.safe_land(5)
@@ -46,8 +50,7 @@ except KeyboardInterrupt:
 		mambo.disconnect()
 
 except Exception as e:
-	print("Error")
+	print("Error: " + str(e))
 	mambo.safe_land(5)
 	mambo.smart_sleep(5)
 	mambo.disconnect()
-	print(str(e))
