@@ -1,6 +1,7 @@
 #Main file for work related to the project. DO NOT define functions in this file.
 
 from Mambo import Mambo
+from ___functions import *
 
 # you will need to change this to the address of YOUR mambo
 mamboAddr = "e0:14:d0:63:3d:d0"
@@ -40,14 +41,7 @@ try:
 		mambo.disconnect()
 
 except KeyboardInterrupt:
-		print("\033[1;31m ### Failsafe Activated ### \033[0;0m")
-		mambo.safe_land(5)
-		mambo.smart_sleep(5)
-		mambo.disconnect()
+		FailsafeLand(None, mambo)
 
 except Exception as e:
-	print("\033[1;31m ### Failsafe Activated ###")
-	print("Error: \033[0;0m" + str(e))
-	mambo.safe_land(5)
-	mambo.smart_sleep(5)
-	mambo.disconnect()
+	FailsafeLand(e, mambo)
