@@ -29,10 +29,11 @@ try:
     while True:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_t:
-                    mambo.safe_takeoff(5)
-                elif event.key == pygame.K_l:
-                    mambo.safe_land(5)
+                if event.key == pygame.K_SPACE:
+                    if mambo.is_landed():
+                        mambo.safe_takeoff(5)
+                    else:
+                        mambo.safe_land(5)
                 elif event.key == pygame.K_w:
                     mambo.fly_direct(roll=0, pitch=50, yaw=0, vertical_movement=0, duration=0.1)
                 elif event.key == pygame.K_s:
