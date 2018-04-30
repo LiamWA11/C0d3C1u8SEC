@@ -56,11 +56,7 @@ try:
  
 
 except KeyboardInterrupt:
-    print("Keboard Interrupt")
-    mambo.safe_land(5)
-    mambo.smart_sleep(5)
+    FailsafeLand(None, mambo)
 
-except Exception:
-    print("Error landing")
-    mambo.safe_land(5)
-    mambo.smart_sleep(5)
+except Exception as e:
+    FailsafeLand(e, mambo)

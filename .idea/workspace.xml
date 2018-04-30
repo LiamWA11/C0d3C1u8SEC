@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06bf5ace-d9e7-44e6-9d45-3023a1c1cc21" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/C0d3C1u8SEC.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/C0d3C1u8SEC.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pyparrot-master/__pygameKeyboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyparrot-master/__pygameKeyboard.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,8 +32,8 @@
       <file leaf-file-name="__pygameKeyboard.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pyparrot-master/__pygameKeyboard.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
+            <state relative-caret-position="595">
+              <caret line="52" column="46" lean-forward="true" selection-start-line="52" selection-start-column="46" selection-end-line="52" selection-end-column="46" />
               <folding>
                 <element signature="e#463#476#0" expanded="true" />
               </folding>
@@ -308,8 +306,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pyparrot-master/__pygameKeyboard.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
+        <state relative-caret-position="595">
+          <caret line="52" column="46" lean-forward="true" selection-start-line="52" selection-start-column="46" selection-end-line="52" selection-end-column="46" />
           <folding>
             <element signature="e#463#476#0" expanded="true" />
           </folding>
