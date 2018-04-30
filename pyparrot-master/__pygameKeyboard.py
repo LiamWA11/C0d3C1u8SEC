@@ -31,9 +31,9 @@ try:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     if mambo.is_landed():
-                        mambo.safe_takeoff(5)
+                        mambo.takeoff()
                     else:
-                        mambo.safe_land(5)
+                        mambo.land()
                 elif event.key == pygame.K_w:
                     mambo.fly_direct(roll=0, pitch=50, yaw=0, vertical_movement=0, duration=0.1)
                 elif event.key == pygame.K_s:
@@ -42,7 +42,12 @@ try:
                     mambo.fly_direct(roll=-50, pitch=0, yaw=0, vertical_movement=0, duration=0.1)
                 elif event.key == pygame.K_d:
                     mambo.fly_direct(roll=50, pitch=0, yaw=0, vertical_movement=0, duration=0.1)
-
+                elif event.key == pygame.K_q:
+                    mambo.fly_direct(roll=0, pitch=0, yaw=0, vertical_movement=-20, duration=0.1)
+                elif event.key == pygame.K_e:
+                    mambo.fly_direct(roll=0, pitch=0, yaw=0, vertical_movement=-40,
+ 
+ 
 
 except KeyboardInterrupt:
     print("Keboard Interrupt")
