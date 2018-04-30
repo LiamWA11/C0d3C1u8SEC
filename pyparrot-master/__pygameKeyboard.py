@@ -42,10 +42,15 @@ try:
                     mambo.fly_direct(roll=-50, pitch=0, yaw=0, vertical_movement=0, duration=0.1)
                 elif event.key == pygame.K_d:
                     mambo.fly_direct(roll=50, pitch=0, yaw=0, vertical_movement=0, duration=0.1)
-                elif event.key == pygame.K_q:
+                elif event.key == pygame.K_z:
                     mambo.fly_direct(roll=0, pitch=0, yaw=0, vertical_movement=-20, duration=0.1)
+                elif event.key == pygame.K_x:
+                    mambo.fly_direct(roll=0, pitch=0, yaw=0, vertical_movement=20, duration=0.1)
+                elif event.key == pygame.K_q:
+                    mambo.fly_direct(roll=0, pitch=0, yaw=10, vertical_movement=0, duration=0.1)
                 elif event.key == pygame.K_e:
-                    mambo.fly_direct(roll=0, pitch=0, yaw=0, vertical_movement=-40,
+                    mambo.fly_direct(roll=0, pitch=0, yaw=-10, vertical_movement=0, duration=0.1)
+
  
  
 
