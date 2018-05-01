@@ -111,6 +111,8 @@ def main():
             pygame.event.pump()
             ###CLEAR THE EVENT QUEUE, AS EVENTS REQUIRE NO FURTHER HANDLING
             pygame.event.clear()
+            ###PAUSE THE PROGRAM FOR 0.1 SECONDS (THE DURATION OF A SINGLE COMMAND) SO THAT THE COMMANDS DO NOT STACK
+            pygame.time.wait(100)
 
         pygame.quit()
 
