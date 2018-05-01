@@ -21,11 +21,11 @@ CONTROL SCHEME:
 """
 
 ###IMPORT NECESSARY LIBRARIES
-import pygame
 import sys
+import math as m
+import pygame
 from Mambo import Mambo
 from ___functions import *
-import math as m
 
 ###PYGAME DISPLAY DEFINITIONS
 RED = (255,0,0,255)
@@ -64,10 +64,12 @@ def main():
             if keys[pygame.K_SPACE]:               #Check for space pressed
                 ###CHECK FOR STATE OF DRONE, AND LAND/TAKEOFF DEPENDING ON CURRENT STATE
                 if mambo.is_landed():
-                    mambo.takeoff()
+                    mambo.safe_takeoff(2)
+                    mambo.smart_sleep(1)
 
                 else:
-                    mambo.land()
+                    mambo.safe_land(2)
+                    mambo.smart_sleep(1)
 
             if keys[pygame.K_w]:                   #Check for w pressed
                 ###MOVE FORWARDS
@@ -95,25 +97,25 @@ def main():
 
             if keys[pygame.K_UP]:                   #Check for UP arrow pressed
                 ###ASCEND
-                vert = -20
+                vert = 50
                 ###DRAW AN UPWARDS FACING TRIANGLE
                 pygame.draw.polygon(screen, BLUE, [(150, 100), (100, 150), (200, 150)])
 
             if keys[pygame.K_DOWN]:                   #Check for DOWN arrow pressed
                 ###DESCEND
-                vert = 20
+                vert = -50
                 ###DRAW A DOWNWARDS FACING TRIANGLE
                 pygame.draw.polygon(screen, BLUE, [(150, 200), (200, 150), (100, 150)])
 
             if keys[pygame.K_q]:                   #Check for q pressed
                 ###ROTATE ANTI-CLOCKWISE
-                yaw = 10
+                yaw = 50
                 ###DRAW AN ARC ON THE LEFT OF THE SCREEN
                 pygame.draw.arc(screen, BLUE, ((75, 75), (75, 75)), m.pi/2, m.pi, 5)
 
             if keys[pygame.K_e]:                   #Check for e pressed
                 ###ROTATE CLOCKWISE
-                yaw = -10
+                yaw = -50
                 ###DRAW AN ARC ON THE RIGHT OF THE SCREEN
                 pygame.draw.arc(screen, BLUE, ((150, 75), (75, 75)), 0, m.pi/2, 5)
 
@@ -130,7 +132,7 @@ def main():
             pygame.event.pump()
             ###CLEAR THE EVENT QUEUE, AS EVENTS REQUIRE NO FURTHER HANDLING
             pygame.event.clear()
-            ###PAUSE THE PROGRAM FOR 0.1 SECONDS (THE DURATION OF A SINGLE COMMAND) SO
+            ###PAUSE THE PROGRAM FOR 0.05 SECONDS (THE DURATION OF A SINGLE COMMAND) SO
             ###THAT THE COMMANDS DO NOT STACK
             pygame.time.wait(50)
 
