@@ -49,7 +49,6 @@ def main():
     screen = pygame.display.set_mode((width, height))
     done = 0
 
-
     try:
         while not done:
             ###UPDATE THE DISPLAY, WRITE THE CIRCLE AGAIN TO "DELETE" SHAPES THAT AREN'T NECESSARY
@@ -60,14 +59,13 @@ def main():
             ###DEFINE AND/OR RESET MOVEMENT VARIABLES
             roll, pitch, yaw, vert = 0, 0, 0, 0
 
-
             ###CHECK FOR SPECIFIC KEY INPUTS, AND MODIFY MOVEMENT VARIABLES/DRAW SHAPES ACCODINGLY
 
             if keys[pygame.K_SPACE]:               #Check for space pressed
-
                 ###CHECK FOR STATE OF DRONE, AND LAND/TAKEOFF DEPENDING ON CURRENT STATE
                 if mambo.is_landed():
                     mambo.takeoff()
+
                 else:
                     mambo.land()
 
@@ -99,25 +97,25 @@ def main():
                 ###ASCEND
                 vert = -20
                 ###DRAW AN UPWARDS FACING TRIANGLE
-                pygame.draw.polygon(screen, BLUE, [(150,100),(100,150),(200,150)])
+                pygame.draw.polygon(screen, BLUE, [(150, 100), (100, 150), (200, 150)])
 
             if keys[pygame.K_DOWN]:                   #Check for DOWN arrow pressed
                 ###DESCEND
                 vert = 20
                 ###DRAW A DOWNWARDS FACING TRIANGLE
-                pygame.draw.polygon(screen, BLUE, [(150,200),(200,150),(100,150)])
+                pygame.draw.polygon(screen, BLUE, [(150, 200), (200, 150), (100, 150)])
 
             if keys[pygame.K_q]:                   #Check for q pressed
                 ###ROTATE ANTI-CLOCKWISE
                 yaw = 10
                 ###DRAW AN ARC ON THE LEFT OF THE SCREEN
-                pygame.draw.arc(screen, BLUE, ((75,75),(75,75)), m.pi/2, m.pi, 5)
+                pygame.draw.arc(screen, BLUE, ((75, 75), (75, 75)), m.pi/2, m.pi, 5)
 
             if keys[pygame.K_e]:                   #Check for e pressed
                 ###ROTATE CLOCKWISE
                 yaw = -10
-                ###DRAW AN ARC ON THE RIGHT OF THE SCREEN 
-                pygame.draw.arc(screen, BLUE, ((150,75),(75,75)), 0, m.pi/2, 5)
+                ###DRAW AN ARC ON THE RIGHT OF THE SCREEN
+                pygame.draw.arc(screen, BLUE, ((150, 75), (75, 75)), 0, m.pi/2, 5)
 
             if keys[pygame.K_ESCAPE]:              #Check for escape pressed, close pygame window
                 print("Shutting Down \n")
@@ -127,19 +125,21 @@ def main():
 
             ###TELL THE DRONE TO MOVE AS ACCORDING TO MOVEMENT VARIABLES
             mambo.fly_direct(roll, pitch, yaw, vert, duration=0.05)
-            ###HANDLE THE PYGAME EVENT QUEUE, ALLOWING THE PROGRAM TO INTERACT WITH THE REST OF THE OS
+            ###HANDLE THE PYGAME EVENT QUEUE, ALLOWING THE PROGRAM TO INTERACT
+            ###WITH THE REST OF THE OS
             pygame.event.pump()
             ###CLEAR THE EVENT QUEUE, AS EVENTS REQUIRE NO FURTHER HANDLING
             pygame.event.clear()
-            ###PAUSE THE PROGRAM FOR 0.1 SECONDS (THE DURATION OF A SINGLE COMMAND) SO THAT THE COMMANDS DO NOT STACK
+            ###PAUSE THE PROGRAM FOR 0.1 SECONDS (THE DURATION OF A SINGLE COMMAND) SO
+            ###THAT THE COMMANDS DO NOT STACK
             pygame.time.wait(50)
 
         ###QUIT THE PYGAME WINDOW IF THE LOOP IS BROKEN
         pygame.quit()
 
 
-    except Exception as e:
-        FailsafeLand(e, mambo)
+    except Exception as error:
+        FailsafeLand(error, mambo)
 
 
 ###RUN MAIN GAME LOOP
