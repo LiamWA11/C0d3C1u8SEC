@@ -11,13 +11,13 @@ CONTROL SCHEME:
 
        SPACE : TAKEOFF/LAND
        W     : FLY FORWARDS
-       A     : SRAFE LEFT
-       S     : STRAFE RIGHT
+       LEFT  : SRAFE LEFT
+       RIGHT : STRAFE RIGHT
        D     : FLY BACKWARDS
        UP    : ASCEND
        DOWN  : DESCEND
-       Q     : ROTATE LEFT
-       E     : ROTATE RIGHT
+       A     : ROTATE LEFT
+       D     : ROTATE RIGHT
 """
 
 ###IMPORT NECESSARY LIBRARIES
@@ -64,11 +64,11 @@ def main():
             if keys[pygame.K_SPACE]:               #Check for space pressed
                 ###CHECK FOR STATE OF DRONE, AND LAND/TAKEOFF DEPENDING ON CURRENT STATE
                 if mambo.is_landed():
-                    mambo.safe_takeoff(2)
+                    mambo.takeoff()
                     mambo.smart_sleep(1)
 
                 else:
-                    mambo.safe_land(2)
+                    mambo.land()
                     mambo.smart_sleep(1)
 
             if keys[pygame.K_w]:                   #Check for w pressed
@@ -77,7 +77,7 @@ def main():
                 ###DRAW A LINE TOWARDS THE TOP OF SCREEN
                 pygame.draw.line(screen, BLUE, centre, (centre[0], 0), 5)
 
-            if keys[pygame.K_a]:                   #Check for a pressed
+            if keys[pygame.K_LEFT]:                   #Check for LEFT arrow pressed
                 ###STRAFE LEFT
                 roll = -50
                 ###DRAW A LINE TOWARDS THE LEFT OF SCREEN
@@ -89,7 +89,7 @@ def main():
                 ###DRAW A LINE TOWARDS THE BOTTOM OF SCREEN
                 pygame.draw.line(screen, BLUE, centre, (centre[0], height), 5)
 
-            if keys[pygame.K_d]:                   #Check for d pressed
+            if keys[pygame.K_RIGHT]:                   #Check for RIGHT arrow pressed
                 ###STRAFE LEFTWARDS
                 roll = 50
                 ###DRAW A LINE TOWARDS THE RIGHT OF THE SCREEN
@@ -107,23 +107,27 @@ def main():
                 ###DRAW A DOWNWARDS FACING TRIANGLE
                 pygame.draw.polygon(screen, BLUE, [(150, 200), (200, 150), (100, 150)])
 
-            if keys[pygame.K_q]:                   #Check for q pressed
+            if keys[pygame.K_a]:                   #Check for a pressed
                 ###ROTATE ANTI-CLOCKWISE
-                yaw = 50
+                yaw = -50
                 ###DRAW AN ARC ON THE LEFT OF THE SCREEN
                 pygame.draw.arc(screen, BLUE, ((75, 75), (75, 75)), m.pi/2, m.pi, 5)
 
-            if keys[pygame.K_e]:                   #Check for e pressed
+            if keys[pygame.K_d]:                   #Check for d pressed
                 ###ROTATE CLOCKWISE
-                yaw = -50
+                yaw = 50
                 ###DRAW AN ARC ON THE RIGHT OF THE SCREEN
                 pygame.draw.arc(screen, BLUE, ((150, 75), (75, 75)), 0, m.pi/2, 5)
 
             if keys[pygame.K_ESCAPE]:              #Check for escape pressed, close pygame window
-                print("Shutting Down \n")
-                ###BREAK GAME LOOP, LAND THE DRONE
-                FailsafeLand("Pygame window closed with escape.", mambo)
-                done = 1
+                ###CHECK THAT DRONE IS LANDED BEFORE CLOSING THE PROGRAM
+                if mambo.is_landed():
+                    print("Shutting Down \n")
+                    mambo.disconnect()
+                    ###BREAK GAME LOOP, LAND THE DRONE
+                    done = 1
+                else:
+                    print("\nPlease land the drone before exiting the program.\n")
 
             ###TELL THE DRONE TO MOVE AS ACCORDING TO MOVEMENT VARIABLES
             mambo.fly_direct(roll, pitch, yaw, vert, duration=0.05)
