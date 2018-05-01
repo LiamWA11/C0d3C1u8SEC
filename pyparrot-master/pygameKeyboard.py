@@ -119,6 +119,9 @@ def main():
                 ###DRAW AN ARC ON THE RIGHT OF THE SCREEN
                 pygame.draw.arc(screen, BLUE, ((150, 75), (75, 75)), 0, m.pi/2, 5)
 
+            if keys[pygame.K_LSHIFT]:
+                pitch, yaw, roll, vert = pitch*2, yaw*2, roll*2, vert*2
+
             if keys[pygame.K_ESCAPE]:              #Check for escape pressed, close pygame window
                 ###CHECK THAT DRONE IS LANDED BEFORE CLOSING THE PROGRAM
                 if mambo.is_landed():
