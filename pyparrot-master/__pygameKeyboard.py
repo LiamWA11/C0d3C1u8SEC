@@ -48,9 +48,12 @@ def main():
 
             ###GET STATE OF ALL KEYS
             keys = pygame.key.get_pressed()
+            ###DEFINE AND/OR RESET MOVEMENT VARIABLES
+            roll, pitch, yaw, vert = 0, 0, 0, 0
 
 
-            ###CHECK FOR SPECIFIC KEY INPUTS, AND ACT ACCORDINGLY
+            ###CHECK FOR SPECIFIC KEY INPUTS, AND MODIFY MOVEMENT VARIABLES ACCORDINGLY
+
             if keys[pygame.K_SPACE]:               #Check for space pressed
                 print("SPACE")
 
@@ -63,42 +66,42 @@ def main():
             if keys[pygame.K_w]:                   #Check for w pressed
                 print("W")
                 ###MOVE FORWARDS
-                mambo.fly_direct(roll=0, pitch=50, yaw=0, vertical_movement=0, duration=0.1)
+                pitch = 50
 
             if keys[pygame.K_a]:                   #Check for a pressed
                 print("A")
                 ###STRAFE LEFT
-                mambo.fly_direct(roll=-50, pitch=0, yaw=0, vertical_movement=0, duration=0.1)
+                roll = -50
 
             if keys[pygame.K_s]:                   #Check for s pressed
                 print("S")
                 ###MOVE BACKWARDS
-                mambo.fly_direct(roll=0, pitch=-50, yaw=0, vertical_movement=0, duration=0.1)
+                pitch = -50
 
             if keys[pygame.K_d]:                   #Check for d pressed
                 print("D")
                 ###STRAFE LEFTWARDS
-                mambo.fly_direct(roll=50, pitch=0, yaw=0, vertical_movement=0, duration=0.1)
+                roll = 50
 
             if keys[pygame.K_z]:                   #Check for z pressed
                 print("Z")
                 ###ASCEND
-                mambo.fly_direct(roll=0, pitch=0, yaw=0, vertical_movement=-20, duration=0.1)
+                vert = -20
 
             if keys[pygame.K_x]:                   #Check for x pressed
                 print("X")
                 ###DESCEND
-                mambo.fly_direct(roll=0, pitch=0, yaw=0, vertical_movement=20, duration=0.1)
+                vert = 20
 
             if keys[pygame.K_q]:                   #Check for q pressed
                 print("Q")
                 ###ROTATE ANTI-CLOCKWISE
-                mambo.fly_direct(roll=0, pitch=0, yaw=10, vertical_movement=0, duration=0.1)
+                yaw = 10
 
             if keys[pygame.K_e]:                   #Check for e pressed
                 print("E")
                 ###ROTATE CLOCKWISE
-                mambo.fly_direct(roll=0, pitch=0, yaw=-10, vertical_movement=0, duration=0.1)
+                yaw = -10
 
             if keys[pygame.K_ESCAPE]:              #Check for escape pressed, close pygame window
                 print("Shutting Down \n")
@@ -106,13 +109,14 @@ def main():
                 FailsafeLand(None, mambo)
                 done = 1
 
-
+            ###TELL THE DRONE TO MOVE AS ACCORDING TO MOVEMENT VARIABLES
+            mambo.fly_direct(roll, pitch, yaw, vert, duration=0.05)
             ###HANDLE THE PYGAME EVENT QUEUE, ALLOWING THE PROGRAM TO INTERACT WITH THE REST OF THE OS
             pygame.event.pump()
             ###CLEAR THE EVENT QUEUE, AS EVENTS REQUIRE NO FURTHER HANDLING
             pygame.event.clear()
             ###PAUSE THE PROGRAM FOR 0.1 SECONDS (THE DURATION OF A SINGLE COMMAND) SO THAT THE COMMANDS DO NOT STACK
-            pygame.time.wait(100)
+            pygame.time.wait(50)
 
         pygame.quit()
 
