@@ -14,8 +14,8 @@ CONTROL SCHEME:
        A     : SRAFE LEFT
        S     : STRAFE RIGHT
        D     : FLY BACKWARDS
-       Z     : ASCEND
-       X     : DESCEND
+       UP    : ASCEND
+       DOWN  : DESCEND
        Q     : ROTATE LEFT
        E     : ROTATE RIGHT
 """
@@ -25,7 +25,14 @@ import pygame
 import sys
 from Mambo import Mambo
 from ___functions import *
+import math as m
 
+###PYGAME DISPLAY DEFINITIONS
+RED = (255,0,0,255)
+GREEN = (0,255,0,255)
+BLUE = (0,0,255,255)
+(width, height) = (300, 300)
+centre = (int(width/2), int(height/2))
 
 ###MAMBO CLASS DEFINITION
 mamboAddr = ""
@@ -39,23 +46,24 @@ def main():
 
     ###CREATE PYGAME WINDOW AND LOOP EXIT CONDITION
     pygame.init()
-    screen = pygame.display.set_mode((250, 250))
+    screen = pygame.display.set_mode((width, height))
     done = 0
 
 
     try:
         while not done:
-
+            ###UPDATE THE DISPLAY, WRITE THE CIRCLE AGAIN TO "DELETE" SHAPES THAT AREN'T NECESSARY
+            pygame.display.update()
+            pygame.draw.circle(screen, RED, centre, int(width/2))
             ###GET STATE OF ALL KEYS
             keys = pygame.key.get_pressed()
             ###DEFINE AND/OR RESET MOVEMENT VARIABLES
             roll, pitch, yaw, vert = 0, 0, 0, 0
 
 
-            ###CHECK FOR SPECIFIC KEY INPUTS, AND MODIFY MOVEMENT VARIABLES ACCORDINGLY
+            ###CHECK FOR SPECIFIC KEY INPUTS, AND MODIFY MOVEMENT VARIABLES/DRAW SHAPES ACCODINGLY
 
             if keys[pygame.K_SPACE]:               #Check for space pressed
-                print("SPACE")
 
                 ###CHECK FOR STATE OF DRONE, AND LAND/TAKEOFF DEPENDING ON CURRENT STATE
                 if mambo.is_landed():
@@ -64,49 +72,57 @@ def main():
                     mambo.land()
 
             if keys[pygame.K_w]:                   #Check for w pressed
-                print("W")
                 ###MOVE FORWARDS
                 pitch = 50
+                ###DRAW A LINE TOWARDS THE TOP OF SCREEN
+                pygame.draw.line(screen, BLUE, centre, (centre[0], 0), 5)
 
             if keys[pygame.K_a]:                   #Check for a pressed
-                print("A")
                 ###STRAFE LEFT
                 roll = -50
+                ###DRAW A LINE TOWARDS THE LEFT OF SCREEN
+                pygame.draw.line(screen, BLUE, centre, (0, centre[1]), 5)
 
             if keys[pygame.K_s]:                   #Check for s pressed
-                print("S")
                 ###MOVE BACKWARDS
                 pitch = -50
+                ###DRAW A LINE TOWARDS THE BOTTOM OF SCREEN
+                pygame.draw.line(screen, BLUE, centre, (centre[0], height), 5)
 
             if keys[pygame.K_d]:                   #Check for d pressed
-                print("D")
                 ###STRAFE LEFTWARDS
                 roll = 50
+                ###DRAW A LINE TOWARDS THE RIGHT OF THE SCREEN
+                pygame.draw.line(screen, BLUE, centre, (width, centre[1]), 5)
 
-            if keys[pygame.K_z]:                   #Check for z pressed
-                print("Z")
+            if keys[pygame.K_UP]:                   #Check for UP arrow pressed
                 ###ASCEND
                 vert = -20
+                ###DRAW AN UPWARDS FACING TRIANGLE
+                pygame.draw.polygon(screen, BLUE, [(150,100),(100,150),(200,150)])
 
-            if keys[pygame.K_x]:                   #Check for x pressed
-                print("X")
+            if keys[pygame.K_DOWN]:                   #Check for DOWN arrow pressed
                 ###DESCEND
                 vert = 20
+                ###DRAW A DOWNWARDS FACING TRIANGLE
+                pygame.draw.polygon(screen, BLUE, [(150,200),(200,150),(100,150)])
 
             if keys[pygame.K_q]:                   #Check for q pressed
-                print("Q")
                 ###ROTATE ANTI-CLOCKWISE
                 yaw = 10
+                ###DRAW AN ARC ON THE LEFT OF THE SCREEN
+                pygame.draw.arc(screen, BLUE, ((75,75),(75,75)), m.pi/2, m.pi, 5)
 
             if keys[pygame.K_e]:                   #Check for e pressed
-                print("E")
                 ###ROTATE CLOCKWISE
                 yaw = -10
+                ###DRAW AN ARC ON THE RIGHT OF THE SCREEN 
+                pygame.draw.arc(screen, BLUE, ((150,75),(75,75)), 0, m.pi/2, 5)
 
             if keys[pygame.K_ESCAPE]:              #Check for escape pressed, close pygame window
                 print("Shutting Down \n")
-                ###CLOSE GAME WINDOW, LAND THE DRONE
-                FailsafeLand(None, mambo)
+                ###BREAK GAME LOOP, LAND THE DRONE
+                FailsafeLand("Pygame window closed with escape.", mambo)
                 done = 1
 
             ###TELL THE DRONE TO MOVE AS ACCORDING TO MOVEMENT VARIABLES
@@ -118,6 +134,7 @@ def main():
             ###PAUSE THE PROGRAM FOR 0.1 SECONDS (THE DURATION OF A SINGLE COMMAND) SO THAT THE COMMANDS DO NOT STACK
             pygame.time.wait(50)
 
+        ###QUIT THE PYGAME WINDOW IF THE LOOP IS BROKEN
         pygame.quit()
 
 
