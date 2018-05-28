@@ -28,6 +28,7 @@ from Mambo import Mambo
 from ___functions import *
 import microbit
 import time
+import matplotlib.pyplot as plt
 
 ###PYGAME DISPLAY DEFINITIONS
 RED = (255,0,0,255)
@@ -63,8 +64,12 @@ def main():
             
             ###DEFINE AND/OR RESET MOVEMENT VARIABLES
             roll, pitch, yaw, vert = 0, 0, 0, 0
+            
+            print(mambo.sensors.battery)
+           
 
             
+                
             ###CHECK FOR SPECIFIC KEY INPUTS, AND MODIFY MOVEMENT VARIABLES/DRAW SHAPES ACCODINGLY
 
 
@@ -165,3 +170,4 @@ def main():
 
 ###RUN MAIN GAME LOOP
 main()
+plt.show()

@@ -26,8 +26,6 @@ import math as m
 import pygame
 from Mambo import Mambo
 from ___functions import *
-import microbit
-import time
 
 ###PYGAME DISPLAY DEFINITIONS
 RED = (255,0,0,255)
@@ -58,20 +56,10 @@ def main():
             pygame.draw.circle(screen, RED, centre, int(width/2))
             ###GET STATE OF ALL KEYS
             keys = pygame.key.get_pressed()
-            mx = microbit.accelerometer.get_x()/20.48
-            my = microbit.accelerometer.get_y()/20.48*-1
-            
             ###DEFINE AND/OR RESET MOVEMENT VARIABLES
             roll, pitch, yaw, vert = 0, 0, 0, 0
 
-            
             ###CHECK FOR SPECIFIC KEY INPUTS, AND MODIFY MOVEMENT VARIABLES/DRAW SHAPES ACCODINGLY
-
-
-            if microbit.button_a.is_pressed():
-                yaw = mx
-                pitch = my
-         
 
             if keys[pygame.K_SPACE]:               #Check for space pressed
                 ###CHECK FOR STATE OF DRONE, AND LAND/TAKEOFF DEPENDING ON CURRENT STATE
